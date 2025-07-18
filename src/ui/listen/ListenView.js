@@ -9,7 +9,9 @@ export class ListenView extends LitElement {
             width: 400px;
             transform: translate3d(0, 0, 0);
             backface-visibility: hidden;
-            transition: transform 0.2s cubic-bezier(0.23, 1, 0.32, 1), opacity 0.2s ease-out;
+            transition:
+                transform 0.2s cubic-bezier(0.23, 1, 0.32, 1),
+                opacity 0.2s ease-out;
             will-change: transform, opacity;
         }
 
@@ -27,101 +29,108 @@ export class ListenView extends LitElement {
             pointer-events: none;
         }
 
-
         * {
-            font-family: 'Helvetica Neue', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-family:
+                'Helvetica Neue',
+                -apple-system,
+                BlinkMacSystemFont,
+                'Segoe UI',
+                Roboto,
+                sans-serif;
             cursor: default;
             user-select: none;
         }
 
-/* Allow text selection in insights responses */
-.insights-container, .insights-container *, .markdown-content {
-    user-select: text !important;
-    cursor: text !important;
-}
+        /* Allow text selection in insights responses */
+        .insights-container,
+        .insights-container *,
+        .markdown-content {
+            user-select: text !important;
+            cursor: text !important;
+        }
 
-/* highlight.js 스타일 추가 */
-.insights-container pre {
-    background: rgba(0, 0, 0, 0.4) !important;
-    border-radius: 8px !important;
-    padding: 12px !important;
-    margin: 8px 0 !important;
-    overflow-x: auto !important;
-    border: 1px solid rgba(255, 255, 255, 0.1) !important;
-    white-space: pre !important;
-    word-wrap: normal !important;
-    word-break: normal !important;
-}
+        /* highlight.js 스타일 추가 */
+        .insights-container pre {
+            background: rgba(0, 0, 0, 0.4) !important;
+            border-radius: 8px !important;
+            padding: 12px !important;
+            margin: 8px 0 !important;
+            overflow-x: auto !important;
+            border: 1px solid rgba(255, 255, 255, 0.1) !important;
+            white-space: pre !important;
+            word-wrap: normal !important;
+            word-break: normal !important;
+        }
 
-.insights-container code {
-    font-family: 'Monaco', 'Menlo', 'Consolas', monospace !important;
-    font-size: 11px !important;
-    background: transparent !important;
-    white-space: pre !important;
-    word-wrap: normal !important;
-    word-break: normal !important;
-}
+        .insights-container code {
+            font-family: 'Monaco', 'Menlo', 'Consolas', monospace !important;
+            font-size: 11px !important;
+            background: transparent !important;
+            white-space: pre !important;
+            word-wrap: normal !important;
+            word-break: normal !important;
+        }
 
-.insights-container pre code {
-    white-space: pre !important;
-    word-wrap: normal !important;
-    word-break: normal !important;
-    display: block !important;
-}
+        .insights-container pre code {
+            white-space: pre !important;
+            word-wrap: normal !important;
+            word-break: normal !important;
+            display: block !important;
+        }
 
-.insights-container p code {
-    background: rgba(255, 255, 255, 0.1) !important;
-    padding: 2px 4px !important;
-    border-radius: 3px !important;
-    color: #ffd700 !important;
-}
+        .insights-container p code {
+            background: var(--subtle-active-bg, #fbf5e9) !important;
+            padding: 2px 4px !important;
+            border-radius: 3px !important;
+            color: var(--primary, #c0a062) !important;
+        }
 
-.hljs-keyword {
-    color: #ff79c6 !important;
-}
+        .hljs-keyword {
+            color: #d73a49 !important;
+        }
 
-.hljs-string {
-    color: #f1fa8c !important;
-}
+        .hljs-string {
+            color: #032f62 !important;
+        }
 
-.hljs-comment {
-    color: #6272a4 !important;
-}
+        .hljs-comment {
+            color: #6a737d !important;
+        }
 
-.hljs-number {
-    color: #bd93f9 !important;
-}
+        .hljs-number {
+            color: #005cc5 !important;
+        }
 
-.hljs-function {
-    color: #50fa7b !important;
-}
+        .hljs-function {
+            color: #6f42c1 !important;
+        }
 
-.hljs-title {
-    color: #50fa7b !important;
-}
+        .hljs-title {
+            color: #6f42c1 !important;
+        }
 
-.hljs-variable {
-    color: #8be9fd !important;
-}
+        .hljs-variable {
+            color: #e36209 !important;
+        }
 
-.hljs-built_in {
-    color: #ffb86c !important;
-}
+        .hljs-built_in {
+            color: #e36209 !important;
+        }
 
-.hljs-attr {
-    color: #50fa7b !important;
-}
+        .hljs-attr {
+            color: #22863a !important;
+        }
 
-.hljs-tag {
-    color: #ff79c6 !important;
-}
+        .hljs-tag {
+            color: #d73a49 !important;
+        }
         .assistant-container {
             display: flex;
             flex-direction: column;
-            color: #ffffff;
+            color: var(--text-color, #333333);
             box-sizing: border-box;
             position: relative;
-            background: rgba(0, 0, 0, 0.6);
+            background: var(--subtle-bg, #fdfbf5);
             overflow: hidden;
             border-radius: 12px;
             width: 100%;
@@ -137,8 +146,10 @@ export class ListenView extends LitElement {
             bottom: 0;
             border-radius: 12px;
             padding: 1px;
-            background: linear-gradient(169deg, rgba(255, 255, 255, 0.17) 0%, rgba(255, 255, 255, 0.08) 50%, rgba(255, 255, 255, 0.17) 100%);
-            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            background: linear-gradient(169deg, var(--accent, #eadbc8) 0%, rgba(234, 219, 200, 0.5) 50%, var(--accent, #eadbc8) 100%);
+            -webkit-mask:
+                linear-gradient(#fff 0 0) content-box,
+                linear-gradient(#fff 0 0);
             -webkit-mask-composite: destination-out;
             mask-composite: exclude;
             pointer-events: none;
@@ -153,8 +164,8 @@ export class ListenView extends LitElement {
             bottom: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.15);
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            background: var(--subtle-bg, #fdfbf5);
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
             border-radius: 12px;
             z-index: -1;
         }
@@ -170,11 +181,11 @@ export class ListenView extends LitElement {
             width: 100%;
             box-sizing: border-box;
             flex-shrink: 0;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            border-bottom: 1px solid var(--accent, #eadbc8);
         }
 
         .bar-left-text {
-            color: white;
+            color: var(--text-color, #333333);
             font-size: 13px;
             font-family: 'Helvetica Neue', sans-serif;
             font-weight: 500;
@@ -211,7 +222,7 @@ export class ListenView extends LitElement {
             align-items: center;
             gap: 5px;
             background: transparent;
-            color: rgba(255, 255, 255, 0.9);
+            color: var(--text-color, #333333);
             border: none;
             outline: none;
             box-shadow: none;
@@ -227,7 +238,7 @@ export class ListenView extends LitElement {
         }
 
         .toggle-button:hover {
-            background: rgba(255, 255, 255, 0.1);
+            background: var(--subtle-active-bg, #fbf5e9);
         }
 
         .toggle-button svg {
@@ -238,7 +249,7 @@ export class ListenView extends LitElement {
 
         .copy-button {
             background: transparent;
-            color: rgba(255, 255, 255, 0.9);
+            color: var(--text-color, #333333);
             border: none;
             outline: none;
             box-shadow: none;
@@ -248,16 +259,10 @@ export class ListenView extends LitElement {
             display: flex;
             align-items: center;
             justify-content: center;
-            min-width: 24px;
-            height: 24px;
-            flex-shrink: 0;
-            transition: background-color 0.15s ease;
-            position: relative;
-            overflow: hidden;
         }
 
         .copy-button:hover {
-            background: rgba(255, 255, 255, 0.15);
+            background: var(--subtle-active-bg, #fbf5e9);
         }
 
         .copy-button svg {
@@ -265,7 +270,9 @@ export class ListenView extends LitElement {
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            transition: opacity 0.2s ease-in-out, transform 0.2s ease-in-out;
+            transition:
+                opacity 0.2s ease-in-out,
+                transform 0.2s ease-in-out;
         }
 
         .copy-button .check-icon {
@@ -288,7 +295,7 @@ export class ListenView extends LitElement {
             font-size: 10px;
             color: rgba(255, 255, 255, 0.7);
         }
-        
+
         /* ────────────────[ GLASS BYPASS ]─────────────── */
         :host-context(body.has-glass) .assistant-container,
         :host-context(body.has-glass) .top-bar,
@@ -351,7 +358,7 @@ export class ListenView extends LitElement {
         :host-context(body.has-glass) ::-webkit-scrollbar-track,
         :host-context(body.has-glass) ::-webkit-scrollbar-thumb {
             background: transparent !important;
-            width: 0 !important;      /* 스크롤바 자체 숨기기 */
+            width: 0 !important; /* 스크롤바 자체 숨기기 */
         }
         :host-context(body.has-glass) .assistant-container,
         :host-context(body.has-glass) .top-bar,
@@ -518,9 +525,8 @@ export class ListenView extends LitElement {
         this.updateComplete
             .then(() => {
                 const topBar = this.shadowRoot.querySelector('.top-bar');
-                const activeContent = this.viewMode === 'transcript'
-                    ? this.shadowRoot.querySelector('stt-view')
-                    : this.shadowRoot.querySelector('summary-view');
+                const activeContent =
+                    this.viewMode === 'transcript' ? this.shadowRoot.querySelector('stt-view') : this.shadowRoot.querySelector('summary-view');
 
                 if (!topBar || !activeContent) return;
 
@@ -629,8 +635,8 @@ export class ListenView extends LitElement {
                 ? 'Copy Transcript'
                 : 'Copy Glass Analysis'
             : this.viewMode === 'insights'
-            ? `Live insights`
-            : `Glass is Listening ${this.elapsedTime}`;
+              ? `Live insights`
+              : `Glass is Listening ${this.elapsedTime}`;
 
         return html`
             <div class="assistant-container">
@@ -673,15 +679,9 @@ export class ListenView extends LitElement {
                     </div>
                 </div>
 
-                <stt-view 
-                    .isVisible=${this.viewMode === 'transcript'}
-                    @stt-messages-updated=${this.handleSttMessagesUpdated}
-                ></stt-view>
+                <stt-view .isVisible=${this.viewMode === 'transcript'} @stt-messages-updated=${this.handleSttMessagesUpdated}></stt-view>
 
-                <summary-view 
-                    .isVisible=${this.viewMode === 'insights'}
-                    .hasCompletedRecording=${this.hasCompletedRecording}
-                ></summary-view>
+                <summary-view .isVisible=${this.viewMode === 'insights'} .hasCompletedRecording=${this.hasCompletedRecording}></summary-view>
             </div>
         `;
     }

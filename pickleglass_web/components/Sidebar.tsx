@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import Image from 'next/image';
 import { useState, createElement, useEffect, useMemo, useCallback, memo } from 'react';
-import { Search, Activity, HelpCircle, Download, ChevronDown, User, Shield, Database, CreditCard, LogOut, LucideIcon } from 'lucide-react';
+import { Search, Activity, HelpCircle, Download, ChevronDown, User, Shield, Database, CreditCard, LogOut, LucideIcon, Heart } from 'lucide-react';
 import { logout, UserProfile, checkApiKeyStatus } from '@/utils/api';
 import { useAuth } from '@/utils/auth';
 
@@ -214,29 +214,15 @@ const SidebarComponent = ({ isCollapsed, onToggle, onSearchClick }: SidebarProps
         []
     );
 
-    const bottomItems = useMemo(
-        () => [
-            {
-                href: 'https://discord.gg/UCZH5B5Hpd',
-                icon: '/linkout.svg',
-                text: 'Join Discord',
-                ariaLabel: 'Help Center (new window)',
-            },
-            {
-                href: 'https://www.dropbox.com/scl/fi/esk4h8z45sryvbremy57v/Pickle_latest.dmg?rlkey=92y535bz6p6gov6vd17x6q53b&st=9kl0annj&dl=1',
-                icon: '/download.svg',
-                text: 'Download Pickle Camera',
-                ariaLabel: 'Download Pickle Camera (new window)',
-            },
-            {
-                href: 'hhttps://www.dropbox.com/scl/fi/znid09apxiwtwvxer6oc9/Glass_latest.dmg?rlkey=gwvvyb3bizkl25frhs4k1zwds&st=37q31b4w&dl=1',
-                icon: '/download.svg',
-                text: 'Download Pickle Glass',
-                ariaLabel: 'Download Pickle Glass (new window)',
-            },
-        ],
-        []
-    );
+    type BottomItem = {
+        href: string;
+        icon: LucideIcon | string;
+        isLucide: boolean;
+        text: string;
+        ariaLabel: string;
+    };
+
+    const bottomItems = useMemo<BottomItem[]>(() => [], []);
 
     const toggleSidebar = useCallback(() => {
         onToggle(!isCollapsed);
@@ -275,7 +261,7 @@ const SidebarComponent = ({ isCollapsed, onToggle, onSearchClick }: SidebarProps
     `;
 
             const getStateClasses = (isActive: boolean) =>
-                isActive ? 'bg-[#f2f2f2] text-[#282828]' : 'text-[#282828] hover:text-[#282828] hover:bg-[#f7f7f7]';
+                isActive ? 'bg-subtle-active-bg text-secondary' : 'text-secondary hover:bg-subtle-active-bg';
 
             if (item.action) {
                 return (
@@ -351,11 +337,7 @@ const SidebarComponent = ({ isCollapsed, onToggle, onSearchClick }: SidebarProps
                                             className={`
                                   group flex items-center rounded-lg px-[12px] py-[8px] text-[13px] gap-x-[9px]
                       focus:outline-none
-                                  ${
-                                      pathname === subItem.href
-                                          ? 'bg-subtle-active-bg text-[#282828]'
-                                          : 'text-[#282828] hover:text-[#282828] hover:bg-[#f7f7f7]'
-                                  }
+                                  ${pathname === subItem.href ? 'bg-subtle-active-bg text-secondary' : 'text-secondary hover:bg-subtle-active-bg'}
                       transition-colors duration-${ANIMATION_DURATION.COLOR_TRANSITION} ease-out
                                 `}
                                             style={{
@@ -397,7 +379,7 @@ const SidebarComponent = ({ isCollapsed, onToggle, onSearchClick }: SidebarProps
                                             href="/login"
                                             className={`
                                     group flex items-center rounded-lg px-[12px] py-[8px] text-[13px] gap-x-[9px] 
-                                    text-[#282828] hover:text-[#282828] hover:bg-[#f7f7f7] w-full 
+                                    text-secondary hover:bg-subtle-active-bg w-full 
                                     transition-colors duration-${ANIMATION_DURATION.COLOR_TRANSITION} ease-out
                                     focus:outline-none
                                   `}
@@ -472,7 +454,7 @@ const SidebarComponent = ({ isCollapsed, onToggle, onSearchClick }: SidebarProps
 
     return (
         <aside
-            className={`flex h-full flex-col bg-white border-r py-3 px-2 border-[#e5e5e5] relative ${isCollapsed ? 'w-[60px]' : 'w-[220px]'}`}
+            className={`flex h-full flex-col bg-subtle-bg text-secondary border-r border-accent transition-all ease-in-out`}
             style={sidebarContainerStyle}
             role="navigation"
             aria-label="main navigation"
@@ -480,14 +462,12 @@ const SidebarComponent = ({ isCollapsed, onToggle, onSearchClick }: SidebarProps
         >
             <header className={`group relative h-6 flex shrink-0 items-center justify-between`}>
                 {isCollapsed ? (
-                    <Link href="https://pickle.com" target="_blank" rel="noopener noreferrer" className="flex items-center">
+                    <Link href="https://x.com/jehovahscript" target="_blank" rel="noopener noreferrer" className="flex items-center">
                         <Image src="/symbol.svg" alt="Logo" width={20} height={20} className="mx-3 shrink-0" />
                         <button
                             onClick={toggleSidebar}
                             onKeyDown={e => handleKeyDown(e, toggleSidebar)}
-                            className={`${
-                                isCollapsed ? '' : ''
-                            } "absolute inset-0 flex items-center justify-center text-gray-500 hover:text-gray-800 rounded-md opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100 transition-all duration-300 ease-out focus:outline-none`}
+                            className={`absolute inset-0 flex items-center justify-center text-gray-500 hover:text-gray-800 rounded-md opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100 transition-all duration-300 ease-out focus:outline-none`}
                             aria-label="Open sidebar"
                         >
                             <Image src="/unfold.svg" alt="Open" width={18} height={18} className="h-4.5 w-4.5" />
@@ -495,21 +475,14 @@ const SidebarComponent = ({ isCollapsed, onToggle, onSearchClick }: SidebarProps
                     </Link>
                 ) : (
                     <>
-                        <Link href="https://pickle.com" target="_blank" rel="noopener noreferrer" className="flex items-center">
-                            <Image
-                                src={isCollapsed ? '/symbol.svg' : '/word.svg'}
-                                alt="pickleglass Logo"
-                                width={50}
-                                height={14}
-                                className="mx-3 shrink-0"
-                            />
+                        {' '}
+                        <Link href="https://x.com/jehovahscript" target="_blank" rel="noopener noreferrer" className="flex items-center">
+                            <Image src="/word.svg" alt="spirit Logo" width={60} height={30} className="mx-3 shrink-0" />
                         </Link>
                         <button
                             onClick={toggleSidebar}
                             onKeyDown={e => handleKeyDown(e, toggleSidebar)}
-                            className={`${
-                                isCollapsed ? '' : ''
-                            } text-gray-500 hover:text-gray-800 p-1 rounded-[4px] hover:bg-[#f7f7f7] h-6 w-6 transition-colors focus:outline-none`}
+                            className={`text-gray-500 hover:text-gray-800 p-1 rounded-[4px] hover:bg-subtle-active-bg h-6 w-6 transition-colors focus:outline-none`}
                             aria-label="Close sidebar"
                         >
                             <Image src="/unfold.svg" alt="Close" width={16} height={16} className="transform rotate-180" />
@@ -535,7 +508,7 @@ const SidebarComponent = ({ isCollapsed, onToggle, onSearchClick }: SidebarProps
                     } "absolute inset-0 flex items-center justify-center w-full h-[36px] mb-[8px] rounded-[20px] flex justify-center items-center text-gray-500 hover:text-gray-800 rounded-md scale-90 group-hover:opacity-100 group-hover:scale-100 transition-all duration-300 ease-out focus:outline-none`}
                     aria-label="Open sidebar"
                 >
-                    <div className="w-[36px] h-[36px] flex items-center justify-center bg-[#f7f7f7] rounded-[20px]">
+                    <div className="w-[36px] h-[36px] flex items-center justify-center bg-subtle-active-bg rounded-[20px]">
                         <Image src="/unfold.svg" alt="Open" width={18} height={18} className="h-4.5 w-4.5" />
                     </div>
                 </button>
@@ -549,37 +522,38 @@ const SidebarComponent = ({ isCollapsed, onToggle, onSearchClick }: SidebarProps
                 )}
 
                 <div className="mt-auto space-y-[0px]" role="navigation" aria-label="Additional links">
-                    {bottomItems.map((item, index) => (
-                        <Link
-                            key={item.text}
-                            href={item.href}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className={`
-                group flex items-center rounded-[6px] px-[12px] py-[8px] text-[13px] text-[#282828]
-                hover:text-[#282828] hover:bg-[#f7f7f7] ${isCollapsed ? '' : 'gap-x-[10px]'}
+                    {bottomItems.length > 0 &&
+                        bottomItems.map((item, index) => (
+                            <Link
+                                key={item.text}
+                                href={item.href}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className={`
+                group flex items-center rounded-[6px] px-[12px] py-[8px] text-[13px] text-secondary
+                hover:text-secondary hover:bg-subtle-active-bg ${isCollapsed ? '' : 'gap-x-[10px]'}
                 transition-colors duration-${ANIMATION_DURATION.COLOR_TRANSITION} ease-out 
                 focus:outline-none
               `}
-                            title={isCollapsed ? item.text : undefined}
-                            aria-label={item.ariaLabel}
-                            style={{ willChange: 'background-color, color' }}
-                        >
-                            <div className=" overflow-hidden">
-                                <span className="" style={getUniformTextStyle()}>
-                                    {item.text}
-                                </span>
-                            </div>
-                            <div className="shrink-0 flex items-center justify-center w-4 h-4">
-                                <IconComponent
-                                    icon={item.icon}
-                                    isLucide={false}
-                                    alt={`${item.text} icon`}
-                                    className={`h-[16px] w-[16px] transition-transform duration-${ANIMATION_DURATION.ICON_HOVER}`}
-                                />
-                            </div>
-                        </Link>
-                    ))}
+                                title={isCollapsed ? item.text : undefined}
+                                aria-label={item.ariaLabel}
+                                style={{ willChange: 'background-color, color' }}
+                            >
+                                <div className=" overflow-hidden">
+                                    <span className="" style={getUniformTextStyle()}>
+                                        {item.text}
+                                    </span>
+                                </div>
+                                <div className="shrink-0 flex items-center justify-center w-4 h-4">
+                                    <IconComponent
+                                        icon={item.icon}
+                                        isLucide={item.isLucide}
+                                        alt={`${item.text} icon`}
+                                        className={`h-[16px] w-[16px] transition-transform duration-${ANIMATION_DURATION.ICON_HOVER}`}
+                                    />
+                                </div>
+                            </Link>
+                        ))}
                 </div>
 
                 <div className="mt-[0px] flex items-center w-full h-[1px] px-[4px] mt-[8px] mb-[8px]">
@@ -600,7 +574,7 @@ const SidebarComponent = ({ isCollapsed, onToggle, onSearchClick }: SidebarProps
                         className={`
               h-[30px] w-[30px] rounded-full border border-[#8d8d8d] flex items-center justify-center text-[#282828] text-[13px] 
               shrink-0 cursor-pointer transition-all duration-${ANIMATION_DURATION.ICON_HOVER} 
-              hover:bg-[#f7f7f7] focus:outline-none
+              hover:bg-subtle-active-bg focus:outline-none
             `}
                         title={getUserDisplayName()}
                         style={{ willChange: 'background-color, transform' }}
